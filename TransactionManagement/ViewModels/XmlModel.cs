@@ -1,13 +1,13 @@
-﻿using DAL.Models.Status;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TransactionManagement.ViewModels.Status;
 
-namespace DAL.Models
+namespace TransactionManagement.ViewModels
 {
     internal class XmlModel
     {
-        public string TransactionIdentifier { get; set; }
+        public string TransactionId { get; set; }
         public decimal Amount { get; set; }
         public string CurrencyCode { get; set; }
         public DateTime TransactionDate { get; set; }
