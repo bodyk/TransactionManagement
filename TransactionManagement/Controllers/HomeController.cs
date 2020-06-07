@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace TransactionManagement.Controllers
@@ -15,6 +16,11 @@ namespace TransactionManagement.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult File(IFormFile file)
+        {
+            return RedirectToAction("Index");
         }
     }
 }
