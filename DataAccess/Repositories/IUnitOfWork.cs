@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
@@ -8,6 +9,6 @@ namespace DataAccess.Repositories
     {
         ITransactionRepository TransactionRepository { get; }
 
-        void Commit();
+        Task CommitAsync();
     }
 }

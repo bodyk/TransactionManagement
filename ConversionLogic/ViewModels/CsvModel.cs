@@ -1,12 +1,12 @@
-﻿using System;
+﻿using ConversionLogic.ViewModels.Status;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-using TransactionManagement.ViewModels.Status;
 
-namespace Core.ViewModels
+namespace ConversionLogic.ViewModels
 {
-    internal class CsvModel
+    public class CsvModel
     {
         public string TransactionIdentificator { get; set; }
         public decimal Amount { get; set; }

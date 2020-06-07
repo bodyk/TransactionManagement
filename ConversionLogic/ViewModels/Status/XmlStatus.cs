@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.ViewModels.Status
+namespace ConversionLogic.ViewModels.Status
 {
-    internal enum XmlStatus
+    public enum XmlStatus
     {
         Approved,
         Rejected,

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TransactionManagement.ViewModels.Status
+namespace ConversionLogic.ViewModels.Status
 {
-    internal enum CsvStatus
+    public enum CsvStatus
     {
         Approved,
         Failed,

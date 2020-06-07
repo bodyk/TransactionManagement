@@ -1,11 +1,11 @@
-﻿using Core.ViewModels.Status;
+﻿using ConversionLogic.ViewModels.Status;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.ViewModels
+namespace ConversionLogic.ViewModels
 {
-    internal class XmlModel
+    public class XmlModel
     {
         public string TransactionId { get; set; }
         public decimal Amount { get; set; }

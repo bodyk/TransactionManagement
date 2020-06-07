@@ -1,21 +1,26 @@
-﻿using System;
+﻿using DataAccess.DataContext;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAccess.Repositories.Implementation
 {
     public class UnitOfWork : IUnitOfWork
     {
+        private readonly DatabaseContext databaseContext;
+
         public ITransactionRepository TransactionRepository { get; }
 
-        public UnitOfWork(ITransactionRepository transactionRepository)
+        public UnitOfWork(DatabaseContext databaseContext, ITransactionRepository transactionRepository)
         {
+            this.databaseContext = databaseContext;
             TransactionRepository = transactionRepository;
         }
 
-        public void Commit()
+        public Task CommitAsync()
         {
-            throw new NotImplementedException();
+            return databaseContext.SaveChangesAsync();
         }
     }
 }

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositionRoot", "Composit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{3407D09A-0820-4BA7-9C18-BF613317423B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConversionLogic", "ConversionLogic\ConversionLogic.csproj", "{D53E6178-7BFE-4134-9D59-5EC2DC47A2A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3407D09A-0820-4BA7-9C18-BF613317423B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3407D09A-0820-4BA7-9C18-BF613317423B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3407D09A-0820-4BA7-9C18-BF613317423B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D53E6178-7BFE-4134-9D59-5EC2DC47A2A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D53E6178-7BFE-4134-9D59-5EC2DC47A2A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D53E6178-7BFE-4134-9D59-5EC2DC47A2A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D53E6178-7BFE-4134-9D59-5EC2DC47A2A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
