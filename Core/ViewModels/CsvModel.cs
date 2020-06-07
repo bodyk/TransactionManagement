@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Text;
 using TransactionManagement.ViewModels.Status;
 
-namespace TransactionManagement.ViewModels
+namespace Core.ViewModels
 {
     internal class CsvModel
     {

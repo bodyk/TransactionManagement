@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TransactionManagement.ViewModels.Status
+namespace Core.ViewModels.Status
 {
     internal enum XmlStatus
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DAL.Models
+namespace DataAccess.Entities
 {
     public enum Status
     {

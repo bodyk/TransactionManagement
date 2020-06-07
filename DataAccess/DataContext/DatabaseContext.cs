@@ -1,14 +1,15 @@
-﻿using DAL.Models;
+﻿using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DAL.DataContext
+namespace DataAccess.DataContext
 {
-    public class TransactionContext : DbContext
+    public class DatabaseContext : DbContext
     {
-        public TransactionContext()
+        public DatabaseContext(DbContextOptions options)
+            : base(options)
         {
             Database.EnsureCreated();
         }
@@ -21,11 +22,6 @@ namespace DAL.DataContext
                 .HasConversion(
                     s => s.ToString(),
                     m => (Status)Enum.Parse(typeof(Status), m));
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite(@"DataSource=mydatabase.db;");
         }
 
         public DbSet<Transaction> Transactions { get; set; }

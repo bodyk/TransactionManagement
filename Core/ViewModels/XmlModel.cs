@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Core.ViewModels.Status;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using TransactionManagement.ViewModels.Status;
 
-namespace TransactionManagement.ViewModels
+namespace Core.ViewModels
 {
     internal class XmlModel
     {

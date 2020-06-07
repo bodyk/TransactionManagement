@@ -4,19 +4,20 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text;
 
-namespace DAL.Models
+namespace DataAccess.Entities
 {
     public class Transaction
     {
-        [MaxLength(50)]
         [Required]
+        [MaxLength(50)]
         public string Id { get; set; }
 
         [Required]
         public decimal Amount { get; set; }
 
         [Required]
-        public RegionInfo CurrencyCode { get; set; }
+        [MaxLength(3)]
+        public string CurrencyCode { get; set; }
 
         [Required]
         public DateTime TransactionDate { get; set; }

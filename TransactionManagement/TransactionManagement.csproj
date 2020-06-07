@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
+    <ProjectReference Include="..\CompositionRoot\CompositionRoot.csproj" />
   </ItemGroup>
 
 </Project>
