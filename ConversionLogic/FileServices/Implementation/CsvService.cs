@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Transactions;
 
 namespace TransactionManagement.FileServices.Implementation
@@ -21,10 +22,10 @@ namespace TransactionManagement.FileServices.Implementation
             this.mapper = mapper;
         }
 
-        public IEnumerable<Transaction> ToTransaction(IFormFile file)
+        public Task<IEnumerable<Transaction>> ToTransaction(IFormFile file)
         {
             if (file == null)
-                return Enumerable.Empty<Transaction>();
+                return Task.FromResult(Enumerable.Empty<Transaction>());
 
             try
             {
@@ -33,7 +34,7 @@ namespace TransactionManagement.FileServices.Implementation
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     var records = csv.GetRecords<CsvModel>().ToList();
-                    return mapper.Map<IEnumerable<CsvModel>,IEnumerable<Transaction>>(records);
+                    return Task.FromResult(mapper.Map<IEnumerable<CsvModel>,IEnumerable<Transaction>>(records));
                 }
             }
             catch (Exception e)
