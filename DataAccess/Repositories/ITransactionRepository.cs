@@ -9,6 +9,8 @@ namespace DataAccess.Repositories
     public interface ITransactionRepository
     {
         Task Uppload(IEnumerable<TransactionEntity> transactions);
-        IAsyncEnumerable<TransactionEntity> GetAll();
+        Task<List<TransactionEntity>> GetAllByCurrency(string currency);
+        Task<List<TransactionEntity>> GetAllByDateRange(DateTime startDate, DateTime endDate);
+        Task<List<TransactionEntity>> GetAllByStatus(Status status);
     }
 }

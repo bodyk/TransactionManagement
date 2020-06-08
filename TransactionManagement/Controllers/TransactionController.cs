@@ -4,6 +4,7 @@ using DataAccess.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TransactionManagement.FileServices.Abstraction;
@@ -75,6 +76,24 @@ namespace TransactionManagement.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllTransactionsByCurrency(string currency)
+        {
+            return Ok(await transactionService.GetAllByCurrency(currency));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllTransactionsByDateRange(DateTime startDate, DateTime endDate)
+        {
+            return Ok(await transactionService.GetAllByDateRange(startDate, endDate));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllTransactionsByStatus(string status)
+        {
+            return Ok(await transactionService.GetAllByStatus(status));
         }
     }
 }
