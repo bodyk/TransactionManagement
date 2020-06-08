@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Transactions;
+﻿using ConversionLogic.ViewModels;
 
 namespace ConversionLogic.FileServices.Abstraction
 {
-    public interface ICsvService : IService
+    public interface ICsvService : IService<CsvModel>
     {
     }
 }

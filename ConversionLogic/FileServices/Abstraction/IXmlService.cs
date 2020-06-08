@@ -1,11 +1,9 @@
 ﻿using ConversionLogic.FileServices.Abstraction;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using ConversionLogic.ViewModels;
 
 namespace TransactionManagement.FileServices.Abstraction
 {
-    public interface IXmlService : IService
+    public interface IXmlService : IService<Transaction>
     {
     }
 }

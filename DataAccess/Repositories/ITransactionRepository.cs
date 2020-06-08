@@ -8,7 +8,7 @@ namespace DataAccess.Repositories
 {
     public interface ITransactionRepository
     {
-        Task Uppload(IEnumerable<Transaction> transactions);
-        IAsyncEnumerable<Transaction> GetAll();
+        Task Uppload(IEnumerable<TransactionEntity> transactions);
+        IAsyncEnumerable<TransactionEntity> GetAll();
     }
 }

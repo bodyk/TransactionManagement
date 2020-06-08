@@ -1,11 +1,13 @@
-﻿using ConversionLogic.FileServices.Implementation;
+﻿using ConversionLogic.FileServices.Abstraction;
+using ConversionLogic.FileServices.Implementation;
+using ConversionLogic.ViewModels;
+using DataAccess.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using System.Transactions;
 using System.Xml.Serialization;
 using TransactionManagement.FileServices.Abstraction;
 
@@ -19,7 +21,7 @@ namespace TransactionManagement.FileServices.Implementation
             this.serializer = new Serializer();
         }
 
-        public async Task<IEnumerable<Transaction>> ToTransaction(IFormFile file)
+        public async Task<IEnumerable<ConversionLogic.ViewModels.Transaction>> ToTransaction(IFormFile file)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<Transaction>), new XmlRootAttribute("Transactions"));
             var xmlString = await ReadAsStringAsync(file);

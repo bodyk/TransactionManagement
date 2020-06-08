@@ -2,6 +2,7 @@
 using ConversionLogic.FileServices.Abstraction;
 using ConversionLogic.ViewModels;
 using CsvHelper;
+using DataAccess.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
 
 namespace TransactionManagement.FileServices.Implementation
 {
@@ -22,10 +22,10 @@ namespace TransactionManagement.FileServices.Implementation
             this.mapper = mapper;
         }
 
-        public Task<IEnumerable<Transaction>> ToTransaction(IFormFile file)
+        public Task<IEnumerable<CsvModel>> ToTransaction(IFormFile file)
         {
             if (file == null)
-                return Task.FromResult(Enumerable.Empty<Transaction>());
+                return Task.FromResult(Enumerable.Empty<CsvModel>());
 
             try
             {
@@ -34,7 +34,7 @@ namespace TransactionManagement.FileServices.Implementation
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     var records = csv.GetRecords<CsvModel>().ToList();
-                    return Task.FromResult(mapper.Map<IEnumerable<CsvModel>,IEnumerable<Transaction>>(records));
+                    return Task.FromResult(records.AsEnumerable());
                 }
             }
             catch (Exception e)

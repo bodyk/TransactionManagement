@@ -2,14 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace ConversionLogic.ViewModels
 {
-    public class XmlModel
+    public class Transaction
     {
-        public string TransactionId { get; set; }
-        public decimal Amount { get; set; }
-        public string CurrencyCode { get; set; }
+        [XmlAttribute("id")]
+        public string Id { get; set; }
+        public PaymentDetails PaymentDetails { get; set; }
         public DateTime TransactionDate { get; set; }
         public XmlStatus Status { get; set; }
     }

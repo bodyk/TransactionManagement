@@ -6,6 +6,6 @@ namespace BusinessLogic.Services
 {
     public interface ITransactionService
     {
-        Task UpploadAsync(IEnumerable<Transaction> transactions);
+        Task UpploadAsync(IEnumerable<TransactionEntity> transactions);
     }
 }

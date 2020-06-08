@@ -1,8 +1,10 @@
 ﻿using BusinessLogic.Services;
 using ConversionLogic.FileServices.Abstraction;
+using DataAccess.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TransactionManagement.FileServices.Abstraction;
 
@@ -16,7 +18,7 @@ namespace TransactionManagement.Controllers
         private readonly ITransactionService transactionService;
 
         public TransactionController(
-            ITransactionService transactionService, 
+            ITransactionService transactionService,
             ILogger<TransactionController> logger,
             IXmlService xmlService,
             ICsvService csvService)
@@ -34,7 +36,44 @@ namespace TransactionManagement.Controllers
 
         public async Task<IActionResult> File(IFormFile file)
         {
-            var results = await xmlService.ToTransaction(file);
+            if (file != null)
+            {
+                List<TransactionEntity> entities = new List<TransactionEntity>();
+                if (file.FileName.EndsWith("csv"))
+                {
+                    var res = await csvService.ToTransaction(file);
+                    foreach (var item in res)
+                    {
+                        var tr = new TransactionEntity
+                        {
+                            Amount = item.Amount,
+                            CurrencyCode = item.CurrencyCode.ToString(),
+                            Id = item.TransactionIdentificator,
+                            Status = (Status)item.Status,
+                            TransactionDate = item.TransactionDate
+                        };
+                        entities.Add(tr);
+                    }
+                }
+                else if (file.FileName.EndsWith("xml"))
+                {
+                    var res = await xmlService.ToTransaction(file);
+                    foreach (var item in res)
+                    {
+                        var tr = new TransactionEntity
+                        {
+                            Amount = item.PaymentDetails.Amount,
+                            CurrencyCode = item.PaymentDetails.CurrencyCode,
+                            Id = item.Id,
+                            Status = (Status)item.Status,
+                            TransactionDate = item.TransactionDate
+                        };
+                        entities.Add(tr);
+                    }
+                }
+                await transactionService.UpploadAsync(entities);
+            }
+
             return RedirectToAction("Index");
         }
     }

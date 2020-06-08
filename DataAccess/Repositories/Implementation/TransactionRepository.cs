@@ -16,12 +16,12 @@ namespace DataAccess.Repositories.Implementation
             this.databaseContext = databaseContext;
         }
 
-        public IAsyncEnumerable<Transaction> GetAll()
+        public IAsyncEnumerable<TransactionEntity> GetAll()
         {
             return databaseContext.Transactions.AsAsyncEnumerable();
         }
 
-        public Task Uppload(IEnumerable<Transaction> transactions)
+        public Task Uppload(IEnumerable<TransactionEntity> transactions)
         {
             databaseContext.Transactions.AddRange(transactions);
             return databaseContext.SaveChangesAsync();

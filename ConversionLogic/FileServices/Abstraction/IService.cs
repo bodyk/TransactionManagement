@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DataAccess.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using System.Transactions;
 
 namespace ConversionLogic.FileServices.Abstraction
 {
-    public interface IService
+    public interface IService<T>
     {
-        Task<IEnumerable<Transaction>> ToTransaction(IFormFile file);
+        Task<IEnumerable<T>> ToTransaction(IFormFile file);
     }
 }

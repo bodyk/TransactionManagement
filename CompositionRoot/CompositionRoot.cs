@@ -6,6 +6,7 @@ using DataAccess.Repositories.Implementation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TransactionManagement.FileServices.Abstraction;
 using TransactionManagement.FileServices.Implementation;
 
 namespace CompositionRoot
@@ -24,6 +25,7 @@ namespace CompositionRoot
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<ICsvService, CsvService>();
+            services.AddScoped<IXmlService, XmlService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }

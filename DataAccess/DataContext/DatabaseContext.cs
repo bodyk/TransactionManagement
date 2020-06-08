@@ -17,13 +17,13 @@ namespace DataAccess.DataContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<Transaction>()
+                .Entity<TransactionEntity>()
                 .Property(t => t.Status)
                 .HasConversion(
                     s => s.ToString(),
                     m => (Status)Enum.Parse(typeof(Status), m));
         }
 
-        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<TransactionEntity> Transactions { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace BusinessLogic.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public Task UpploadAsync(IEnumerable<Transaction> transactions)
+        public Task UpploadAsync(IEnumerable<TransactionEntity> transactions)
         {
             unitOfWork.TransactionRepository.Uppload(transactions);
             return unitOfWork.CommitAsync();
