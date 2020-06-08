@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TransactionManagement.FileServices.Abstraction;
+using TransactionManagement.Filters;
+using TransactionManagement.Models;
 
 namespace TransactionManagement.Controllers
 {
@@ -35,10 +37,19 @@ namespace TransactionManagement.Controllers
             return View();
         }
 
-        public async Task<IActionResult> File(IFormFile file)
+        public async Task<IActionResult> File(TransactionFileViewModel fileViewModel)
         {
-            if (file != null)
+            if (!ModelState.IsValid)
             {
+                return RedirectToAction("Index");
+            }
+
+            if (fileViewModel != null)
+            {
+                var file = fileViewModel.File;
+                if (file == null)
+                    return RedirectToAction("Index");
+
                 List<TransactionEntity> entities = new List<TransactionEntity>();
                 if (file.FileName.EndsWith("csv"))
                 {

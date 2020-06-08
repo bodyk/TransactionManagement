@@ -16,4 +16,8 @@
     <ProjectReference Include="..\ConversionLogic\ConversionLogic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Validators\" />
+  </ItemGroup>
+
 </Project>
