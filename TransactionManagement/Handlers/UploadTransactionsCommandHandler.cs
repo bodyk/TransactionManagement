@@ -1,5 +1,7 @@
 ﻿using BusinessLogic.Services;
+using ConversionLogic;
 using ConversionLogic.FileServices.Abstraction;
+using Core;
 using DataAccess.Entities;
 using MediatR;
 using System;
@@ -18,53 +20,27 @@ namespace TransactionManagement.Handlers
         private readonly IXmlService xmlService;
         private readonly ICsvService csvService;
         private readonly ITransactionService transactionService;
+        private readonly TransactionServiceFactory transactionServiceFactory;
 
         public UploadTransactionsCommandHandler(
             ITransactionService transactionService,
             IXmlService xmlService,
-            ICsvService csvService)
+            ICsvService csvService,
+            TransactionServiceFactory transactionServiceFactory)
         {
             this.transactionService = transactionService;
             this.xmlService = xmlService;
             this.csvService = csvService;
+            this.transactionServiceFactory = transactionServiceFactory;
         }
 
         public async Task<UploadTransactionsResponse> Handle(UploadTransactionsCommand request, CancellationToken cancellationToken)
         {
-            List<TransactionEntity> entities = new List<TransactionEntity>();
-            if (request.FileViewModel.File.FileName.EndsWith("csv"))
-            {
-                var res = await csvService.ToTransaction(request.FileViewModel.File);
-                foreach (var item in res)
-                {
-                    var tr = new TransactionEntity
-                    {
-                        Amount = item.Amount,
-                        CurrencyCode = item.CurrencyCode.ToString(),
-                        Id = item.TransactionIdentificator,
-                        Status = (Status)item.Status,
-                        TransactionDate = item.TransactionDate
-                    };
-                    entities.Add(tr);
-                }
-            }
-            else if (request.FileViewModel.File.FileName.EndsWith("xml"))
-            {
-                var res = await xmlService.ToTransaction(request.FileViewModel.File);
-                foreach (var item in res)
-                {
-                    var tr = new TransactionEntity
-                    {
-                        Amount = item.PaymentDetails.Amount,
-                        CurrencyCode = item.PaymentDetails.CurrencyCode,
-                        Id = item.Id,
-                        Status = (Status)item.Status,
-                        TransactionDate = item.TransactionDate
-                    };
-                    entities.Add(tr);
-                }
-            }
-            await transactionService.UpploadAsync(entities);
+            var file = request.FileViewModel.File;
+            var conversionService = transactionServiceFactory.Create(file);
+            var result = await conversionService.ToTransaction(file);
+
+            await transactionService.UpploadAsync(result);
 
             return new UploadTransactionsResponse();
         }

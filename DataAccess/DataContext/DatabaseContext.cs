@@ -1,8 +1,7 @@
-﻿using DataAccess.Entities;
+﻿using Core;
+using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.DataContext
 {

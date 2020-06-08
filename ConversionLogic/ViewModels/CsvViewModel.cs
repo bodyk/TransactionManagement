@@ -1,12 +1,9 @@
 ﻿using ConversionLogic.ViewModels.Status;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 
 namespace ConversionLogic.ViewModels
 {
-    public class CsvModel
+    public class CsvViewModel : IBaseTransactionViewModel
     {
         public string TransactionIdentificator { get; set; }
         public decimal Amount { get; set; }

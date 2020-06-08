@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Services;
+using Core;
 using DataAccess.Entities;
 using MediatR;
 using System;
@@ -10,7 +11,7 @@ using TransactionManagement.Queries;
 
 namespace TransactionManagement.Handlers
 {
-    public class GetTransactionsByCurrencyHandler : IRequestHandler<GetTransactionsByCurrencyQuery, List<TransactionEntity>>
+    public class GetTransactionsByCurrencyHandler : IRequestHandler<GetTransactionsByCurrencyQuery, List<TransactionDto>>
     {
         private readonly ITransactionService transactionService;
 
@@ -19,7 +20,7 @@ namespace TransactionManagement.Handlers
             this.transactionService = transactionService;
         }
 
-        public async Task<List<TransactionEntity>> Handle(GetTransactionsByCurrencyQuery request, CancellationToken cancellationToken)
+        public async Task<List<TransactionDto>> Handle(GetTransactionsByCurrencyQuery request, CancellationToken cancellationToken)
         {
             return await transactionService.GetAllByCurrency(request.Currency);
         }

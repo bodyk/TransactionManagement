@@ -1,4 +1,6 @@
-﻿using DataAccess.Entities;
+﻿using ConversionLogic.ViewModels;
+using Core;
+using DataAccess.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -8,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace ConversionLogic.FileServices.Abstraction
 {
-    public interface IService<T>
+    public interface IService
     {
-        Task<IEnumerable<T>> ToTransaction(IFormFile file);
+        Task<List<TransactionDto>> ToTransaction(IFormFile file);
     }
 }

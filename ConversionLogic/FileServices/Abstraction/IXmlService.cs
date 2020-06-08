@@ -3,7 +3,7 @@ using ConversionLogic.ViewModels;
 
 namespace TransactionManagement.FileServices.Abstraction
 {
-    public interface IXmlService : IService<Transaction>
+    public interface IXmlService : IService
     {
     }
 }

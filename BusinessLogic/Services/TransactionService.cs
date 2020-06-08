@@ -1,4 +1,6 @@
-﻿using DataAccess.Entities;
+﻿using AutoMapper;
+using Core;
+using DataAccess.Entities;
 using DataAccess.Repositories;
 using System;
 using System.Collections.Generic;
@@ -9,31 +11,38 @@ namespace BusinessLogic.Services
     public class TransactionService : ITransactionService
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
 
-        public TransactionService(IUnitOfWork unitOfWork)
+        public TransactionService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
 
-        public Task<List<TransactionEntity>> GetAllByCurrency(string currency)
+        public async Task<List<TransactionDto>> GetAllByCurrency(string currency)
         {
-            return unitOfWork.TransactionRepository.GetAllByCurrency(currency);
+            var results = await unitOfWork.TransactionRepository.GetAllByCurrency(currency);
+            return mapper.Map<List<TransactionEntity>, List<TransactionDto>>(results);
         }
 
-        public Task<List<TransactionEntity>> GetAllByDateRange(DateTime startDate, DateTime endDate)
+        public async Task<List<TransactionDto>> GetAllByDateRange(DateTime startDate, DateTime endDate)
         {
-            return unitOfWork.TransactionRepository.GetAllByDateRange(startDate, endDate);
+            var results = await unitOfWork.TransactionRepository.GetAllByDateRange(startDate, endDate);
+            return mapper.Map<List<TransactionEntity>, List<TransactionDto>>(results);
+
         }
 
-        public Task<List<TransactionEntity>> GetAllByStatus(string status)
+        public async Task<List<TransactionDto>> GetAllByStatus(string status)
         {
             Status st = (Status)Enum.Parse(typeof(Status), status);
-            return unitOfWork.TransactionRepository.GetAllByStatus(st);
+            var results = await unitOfWork.TransactionRepository.GetAllByStatus(st);
+            return mapper.Map<List<TransactionEntity>, List<TransactionDto>>(results);
         }
 
-        public Task UpploadAsync(IEnumerable<TransactionEntity> transactions)
+        public Task UpploadAsync(List<TransactionDto> transactions)
         {
-            unitOfWork.TransactionRepository.Uppload(transactions);
+            var transactionsToUpload = mapper.Map<List<TransactionDto>, List<TransactionEntity>>(transactions);
+            unitOfWork.TransactionRepository.Uppload(transactionsToUpload);
             return unitOfWork.CommitAsync();
         }
     }

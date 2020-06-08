@@ -12,7 +12,7 @@ namespace TransactionManagement
     {
         public TransactionProfile()
         {
-            CreateMap(typeof(CsvModel), typeof(DataAccess.Entities.TransactionEntity));
+            CreateMap(typeof(CsvViewModel), typeof(DataAccess.Entities.TransactionEntity));
         }
     }
 }

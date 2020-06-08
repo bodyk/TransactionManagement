@@ -1,11 +1,12 @@
-﻿using DataAccess.Entities;
+﻿using Core;
+using DataAccess.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
 
 namespace TransactionManagement.Queries
 {
-    public class GetTransactionsByDateRangeQuery : IRequest<List<TransactionEntity>>
+    public class GetTransactionsByDateRangeQuery : IRequest<List<TransactionDto>>
     {
         public GetTransactionsByDateRangeQuery(DateTime startDate, DateTime endDate)
         {

@@ -6,7 +6,8 @@ using System.Xml.Serialization;
 
 namespace ConversionLogic.ViewModels
 {
-    public class Transaction
+    [XmlType(TypeName = "Transaction")]
+    public class TransactionViewModel : IBaseTransactionViewModel
     {
         [XmlAttribute("id")]
         public string Id { get; set; }

@@ -1,4 +1,7 @@
-﻿using BusinessLogic.Services;
+﻿using AutoMapper;
+using BusinessLogic.MappingProfiles;
+using BusinessLogic.Services;
+using ConversionLogic;
 using ConversionLogic.FileServices.Abstraction;
 using DataAccess.DataContext;
 using DataAccess.Repositories;
@@ -17,6 +20,7 @@ namespace CompositionRoot
 
         public static void InjectDependencies(IServiceCollection services, IConfiguration configuration)
         {
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseSqlite(configuration.GetConnectionString("Default"));
@@ -24,8 +28,13 @@ namespace CompositionRoot
             services.AddScoped<DatabaseContext>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<ITransactionService, TransactionService>();
+
+
             services.AddScoped<ICsvService, CsvService>();
             services.AddScoped<IXmlService, XmlService>();
+
+            services.AddScoped<TransactionServiceFactory>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }

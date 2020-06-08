@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ConversionLogic.FileServices.Abstraction;
 using ConversionLogic.ViewModels;
+using Core;
 using CsvHelper;
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
@@ -24,11 +25,8 @@ namespace TransactionManagement.FileServices.Implementation
             this.mapper = mapper;
         }
 
-        public Task<IEnumerable<CsvModel>> ToTransaction(IFormFile file)
+        public Task<List<TransactionDto>> ToTransaction(IFormFile file)
         {
-            if (file == null)
-                return Task.FromResult(Enumerable.Empty<CsvModel>());
-
             try
             {
                 using (var stream = file.OpenReadStream())
@@ -39,8 +37,22 @@ namespace TransactionManagement.FileServices.Implementation
                     csv.Configuration.Delimiter = ",";
                     csv.Configuration.IgnoreQuotes = true;
                     csv.Configuration.RegisterClassMap<FooMap>(); 
-                    var records = csv.GetRecords<CsvModel>().ToList();
-                    return Task.FromResult(records.AsEnumerable());
+                    var records = csv.GetRecords<CsvViewModel>().ToList();
+
+                    List<TransactionDto> entities = new List<TransactionDto>();
+                    foreach (var item in records)
+                    {
+                        var tr = new TransactionDto
+                        {
+                            Amount = item.Amount,
+                            CurrencyCode = item.CurrencyCode,
+                            TransactionIdentificator = item.TransactionIdentificator,
+                            Status = (Status)item.Status,
+                            TransactionDate = item.TransactionDate
+                        };
+                        entities.Add(tr);
+                    }
+                    return Task.FromResult(entities);
                 }
             }
             catch (Exception e)
@@ -50,7 +62,7 @@ namespace TransactionManagement.FileServices.Implementation
         }
     }
 
-    public class FooMap : ClassMap<CsvModel>
+    public class FooMap : ClassMap<CsvViewModel>
     {
         public FooMap()
         {

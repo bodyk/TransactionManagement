@@ -2,7 +2,7 @@
 
 namespace ConversionLogic.FileServices.Abstraction
 {
-    public interface ICsvService : IService<CsvModel>
+    public interface ICsvService : IService
     {
     }
 }

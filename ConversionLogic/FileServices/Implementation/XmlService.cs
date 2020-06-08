@@ -1,6 +1,7 @@
 ﻿using ConversionLogic.FileServices.Abstraction;
 using ConversionLogic.FileServices.Implementation;
 using ConversionLogic.ViewModels;
+using Core;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -21,14 +22,29 @@ namespace TransactionManagement.FileServices.Implementation
             this.serializer = new Serializer();
         }
 
-        public async Task<IEnumerable<ConversionLogic.ViewModels.Transaction>> ToTransaction(IFormFile file)
+        public async Task<List<TransactionDto>> ToTransaction(IFormFile file)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Transaction>), new XmlRootAttribute("Transactions"));
+            XmlSerializer serializer = new XmlSerializer(typeof(List<TransactionViewModel>), new XmlRootAttribute("Transactions"));
             var xmlString = await ReadAsStringAsync(file);
             StringReader stringReader = new StringReader(xmlString);
-            var result = (List<Transaction>)serializer.Deserialize(stringReader);
+            var result = (List<TransactionViewModel>)serializer.Deserialize(stringReader);
 
-            return result;
+            List<TransactionDto> entities = new List<TransactionDto>();
+
+            foreach (var item in result)
+            {
+                var tr = new TransactionDto
+                {
+                    Amount = item.PaymentDetails.Amount,
+                    CurrencyCode = item.PaymentDetails.CurrencyCode,
+                    TransactionIdentificator = item.Id,
+                    Status = (Status)item.Status,
+                    TransactionDate = item.TransactionDate
+                };
+                entities.Add(tr);
+            }
+
+            return entities;
         }
 
         public async Task<string> ReadAsStringAsync(IFormFile file)
