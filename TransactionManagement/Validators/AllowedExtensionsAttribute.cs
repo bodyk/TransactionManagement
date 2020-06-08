@@ -2,31 +2,28 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TransactionManagement.Filters
+namespace TransactionManagement.Validators
 {
-    public class MaxFileSizeAttribute : ValidationAttribute
+    public class AllowedExtensionsAttribute : ValidationAttribute
     {
-        private readonly int _maxFileSize;
-        public MaxFileSizeAttribute(int maxFileSize)
+        private readonly string[] _extensions;
+        public AllowedExtensionsAttribute(string[] extensions)
         {
-            _maxFileSize = maxFileSize;
+            _extensions = extensions;
         }
 
         protected override ValidationResult IsValid(
         object value, ValidationContext validationContext)
         {
-            if (value == null)
-                return new ValidationResult($"Value is {value}");
-
             var file = value as IFormFile;
-            //var extension = Path.GetExtension(file.FileName);
-            //var allowedExtensions = new[] { ".jpg", ".png" };`enter code here`
+            var extension = Path.GetExtension(file.FileName);
             if (file != null)
             {
-                if (file.Length > _maxFileSize)
+                if (!_extensions.Contains(extension.ToLower()))
                 {
                     return new ValidationResult(GetErrorMessage());
                 }
@@ -37,7 +34,7 @@ namespace TransactionManagement.Filters
 
         public string GetErrorMessage()
         {
-            return $"Maximum allowed file size is { _maxFileSize} bytes.";
+            return $"This photo extension is not allowed!";
         }
     }
 }
