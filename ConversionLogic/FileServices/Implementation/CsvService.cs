@@ -2,6 +2,8 @@
 using ConversionLogic.FileServices.Abstraction;
 using ConversionLogic.ViewModels;
 using CsvHelper;
+using CsvHelper.Configuration;
+using CsvHelper.TypeConversion;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -33,6 +35,10 @@ namespace TransactionManagement.FileServices.Implementation
                 using (var reader = new StreamReader(stream))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
+                    csv.Configuration.HasHeaderRecord = false;
+                    csv.Configuration.Delimiter = ",";
+                    csv.Configuration.IgnoreQuotes = true;
+                    csv.Configuration.RegisterClassMap<FooMap>(); 
                     var records = csv.GetRecords<CsvModel>().ToList();
                     return Task.FromResult(records.AsEnumerable());
                 }
@@ -41,6 +47,27 @@ namespace TransactionManagement.FileServices.Implementation
             {
                 throw new Exception(e.Message);
             }
+        }
+    }
+
+    public class FooMap : ClassMap<CsvModel>
+    {
+        public FooMap()
+        {
+            Map(m => m.TransactionIdentificator);
+            Map(m => m.Amount);
+            Map(m => m.CurrencyCode);
+            Map(m => m.TransactionDate).TypeConverterOption.Format("dd/MM/yyyy hh:mm:ss");
+            Map(m => m.Status);
+        }
+    }
+
+    public class FormattedDecimalTypeConverter : DefaultTypeConverter
+    {
+        public override object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)
+        {
+            var txt = text.Replace(",", "");
+            return txt;
         }
     }
 }
