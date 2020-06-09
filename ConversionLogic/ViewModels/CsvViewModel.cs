@@ -3,7 +3,7 @@ using System;
 
 namespace ConversionLogic.ViewModels
 {
-    public class CsvViewModel : IBaseTransactionViewModel
+    public class CsvViewModel
     {
         public string TransactionIdentificator { get; set; }
         public decimal Amount { get; set; }

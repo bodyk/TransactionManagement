@@ -31,18 +31,16 @@ namespace TransactionManagement.Middlewares
         private static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             HttpStatusCode code;
-            string result;
 
             if (ex is TransactionValidationException)
             {
                 code = HttpStatusCode.BadRequest;
-                result = ex.GetaAllMessages();
             }
             else
             {
                 code = HttpStatusCode.InternalServerError;
-                result = JsonConvert.SerializeObject(new { error = ex.Message });
             }
+            var result = ex.GetaAllMessages();
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;

@@ -4,8 +4,6 @@ using ConversionLogic.ViewModels;
 using Core.Exceptions;
 using Core.Models;
 using CsvHelper;
-using CsvHelper.TypeConversion;
-using DataAccess.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

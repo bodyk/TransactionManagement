@@ -1,13 +1,11 @@
 ﻿using ConversionLogic.ViewModels.Status;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace ConversionLogic.ViewModels
 {
     [XmlType(TypeName = "Transaction")]
-    public class TransactionViewModel : IBaseTransactionViewModel
+    public class TransactionViewModel
     {
         [XmlAttribute("id")]
         public string Id { get; set; }

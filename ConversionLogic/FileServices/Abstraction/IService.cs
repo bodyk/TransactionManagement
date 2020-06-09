@@ -1,11 +1,6 @@
-﻿using ConversionLogic.ViewModels;
-using Core.Models;
-using DataAccess.Entities;
+﻿using Core.Models;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConversionLogic.FileServices.Abstraction

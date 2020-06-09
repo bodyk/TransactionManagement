@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using ConversionLogic.FileServices.Abstraction;
 using ConversionLogic.FileServices.Implementation;
 using ConversionLogic.ViewModels;
 using Core.Exceptions;
 using Core.Models;
-using DataAccess.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

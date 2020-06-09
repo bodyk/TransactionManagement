@@ -1,6 +1,4 @@
-﻿using ConversionLogic.ViewModels;
-
-namespace ConversionLogic.FileServices.Abstraction
+﻿namespace ConversionLogic.FileServices.Abstraction
 {
     public interface ICsvService : IService
     {
