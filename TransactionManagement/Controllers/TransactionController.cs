@@ -1,18 +1,10 @@
-﻿using BusinessLogic.Services;
-using ConversionLogic.FileServices.Abstraction;
-using DataAccess.Entities;
-using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using TransactionManagement.Commands;
-using TransactionManagement.FileServices.Abstraction;
 using TransactionManagement.Filters;
 using TransactionManagement.Models;
-using TransactionManagement.Queries;
 
 namespace TransactionManagement.Queries
 {

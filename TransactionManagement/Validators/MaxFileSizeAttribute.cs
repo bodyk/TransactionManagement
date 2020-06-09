@@ -1,28 +1,21 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TransactionManagement.Validators
 {
     public class MaxFileSizeAttribute : ValidationAttribute
     {
-        private readonly int _maxFileSize;
+        private readonly int maxFileSize;
         public MaxFileSizeAttribute(int maxFileSize)
         {
-            _maxFileSize = maxFileSize;
+            this.maxFileSize = maxFileSize;
         }
 
-        protected override ValidationResult IsValid(
-            object value, 
-            ValidationContext validationContext)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var file = value as IFormFile;
-            if (file != null)
+            if (value is IFormFile file)
             {
-                if (file.Length > _maxFileSize)
+                if (file.Length > maxFileSize)
                 {
                     return new ValidationResult(GetErrorMessage());
                 }
@@ -33,7 +26,7 @@ namespace TransactionManagement.Validators
 
         public string GetErrorMessage()
         {
-            return $"Unknown format";
+            return $"File should not be bigger than {maxFileSize} bytes";
         }
     }
 }

@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace TransactionManagement.Validators
 {
@@ -16,8 +14,7 @@ namespace TransactionManagement.Validators
             _extensions = extensions;
         }
 
-        protected override ValidationResult IsValid(
-        object value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var file = value as IFormFile;
             var extension = Path.GetExtension(file.FileName);
@@ -25,16 +22,16 @@ namespace TransactionManagement.Validators
             {
                 if (!_extensions.Contains(extension.ToLower()))
                 {
-                    return new ValidationResult(GetErrorMessage());
+                    return new ValidationResult(GetErrorMessage(extension));
                 }
             }
 
             return ValidationResult.Success;
         }
 
-        public string GetErrorMessage()
+        public string GetErrorMessage(string extension)
         {
-            return $"This photo extension is not allowed!";
+            return $"Unknown extension: {extension}";
         }
     }
 }

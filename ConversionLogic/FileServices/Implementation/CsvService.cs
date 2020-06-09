@@ -26,22 +26,14 @@ namespace TransactionManagement.FileServices.Implementation
 
         public Task<List<TransactionDto>> ToTransaction(IFormFile file)
         {
-            try
-            {
-                using (var stream = file.OpenReadStream())
-                using (var reader = new StreamReader(stream))
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-                {
-                    csv.Configuration.HasHeaderRecord = false;
-                    csv.Configuration.RegisterClassMap<CsvTransactionMap>(); 
-                    var records = csv.GetRecords<CsvViewModel>().ToList();
-                    return Task.FromResult(mapper.Map<List<CsvViewModel>, List<TransactionDto>>(records));
-                }
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            using var stream = file.OpenReadStream();
+            using var reader = new StreamReader(stream);
+            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+
+            csv.Configuration.HasHeaderRecord = false;
+            csv.Configuration.RegisterClassMap<CsvTransactionMap>();
+            var records = csv.GetRecords<CsvViewModel>().ToList();
+            return Task.FromResult(mapper.Map<List<CsvViewModel>, List<TransactionDto>>(records));
         }
     }
 }
