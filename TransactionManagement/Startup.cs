@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using TransactionManagement.Middlewares;
 using static CompositionRoot.CompositionRoot;
 
 namespace TransactionManagement
@@ -35,13 +35,12 @@ namespace TransactionManagement
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseStatusCodePages();
 
             app.UseEndpoints(endpoints =>

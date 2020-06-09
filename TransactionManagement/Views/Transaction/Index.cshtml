@@ -7,7 +7,7 @@
         <input type="file" name="file" />
         <button type="submit">Submit</button>
     </form>
-
+    <br />
     <h4>Get all transactions</h4>
     <h3>By currency</h3>
     <form asp-controller="Transaction" asp-action="GetAllTransactionsByCurrency" method="get">
@@ -15,6 +15,7 @@
         <button type="submit">Submit</button>
     </form>
 
+    <br />
     <h3>By Date Range</h3>
     <form asp-controller="Transaction" asp-action="GetAllTransactionsByDateRange" method="get">
         <input type="date" name="startDate">
@@ -22,6 +23,7 @@
         <button type="submit">Submit</button>
     </form>
 
+    <br />
     <h3>By status</h3>
     <form asp-controller="Transaction" asp-action="GetAllTransactionsByStatus" method="get">
 

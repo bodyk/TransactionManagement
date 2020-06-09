@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ConversionLogic.ViewModels;
-using Core;
+using Core.Models;
 
 namespace ConversionLogic.MappingProfiles
 {

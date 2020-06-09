@@ -1,5 +1,5 @@
 ﻿using ConversionLogic.ViewModels;
-using Core;
+using Core.Models;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Http;
 using System;

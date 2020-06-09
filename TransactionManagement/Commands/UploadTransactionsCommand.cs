@@ -1,14 +1,9 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TransactionManagement.Models;
-using TransactionManagement.Responses;
 
 namespace TransactionManagement.Commands
 {
-    public class UploadTransactionsCommand : IRequest<UploadTransactionsResponse>
+    public class UploadTransactionsCommand : IRequest<int>
     {
         public UploadTransactionsCommand(TransactionFileViewModel fileViewModel)
         {

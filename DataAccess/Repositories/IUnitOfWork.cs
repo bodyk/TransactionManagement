@@ -9,6 +9,6 @@ namespace DataAccess.Repositories
     {
         ITransactionRepository TransactionRepository { get; }
 
-        Task CommitAsync();
+        Task<int> CommitAsync();
     }
 }

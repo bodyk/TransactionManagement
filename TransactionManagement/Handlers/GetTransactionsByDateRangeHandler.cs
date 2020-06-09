@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.Services;
-using Core;
+using Core.Models;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;

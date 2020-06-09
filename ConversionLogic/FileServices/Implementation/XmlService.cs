@@ -2,7 +2,8 @@
 using ConversionLogic.FileServices.Abstraction;
 using ConversionLogic.FileServices.Implementation;
 using ConversionLogic.ViewModels;
-using Core;
+using Core.Exceptions;
+using Core.Models;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -28,10 +29,19 @@ namespace TransactionManagement.FileServices.Implementation
 
         public async Task<List<TransactionDto>> ToTransaction(IFormFile file)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<TransactionViewModel>), new XmlRootAttribute("Transactions"));
-            var xmlString = await ReadAsStringAsync(file);
-            StringReader stringReader = new StringReader(xmlString);
-            var records = (List<TransactionViewModel>)serializer.Deserialize(stringReader);
+            List<TransactionViewModel> records = new List<TransactionViewModel>();
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(List<TransactionViewModel>), new XmlRootAttribute("Transactions"));
+                var xmlString = await ReadAsStringAsync(file);
+                StringReader stringReader = new StringReader(xmlString);
+                records = (List<TransactionViewModel>)serializer.Deserialize(stringReader);
+            }
+            catch (Exception ex)
+            {
+                throw new TransactionValidationException(ex);
+            }
+            
             return mapper.Map<List<TransactionViewModel>, List<TransactionDto>>(records);
         }
 

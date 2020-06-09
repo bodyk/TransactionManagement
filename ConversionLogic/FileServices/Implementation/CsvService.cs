@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using ConversionLogic.FileServices.Abstraction;
 using ConversionLogic.ViewModels;
-using Core;
+using Core.Exceptions;
+using Core.Models;
 using CsvHelper;
 using CsvHelper.TypeConversion;
 using DataAccess.Entities;
@@ -26,13 +27,22 @@ namespace TransactionManagement.FileServices.Implementation
 
         public Task<List<TransactionDto>> ToTransaction(IFormFile file)
         {
-            using var stream = file.OpenReadStream();
-            using var reader = new StreamReader(stream);
-            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+            List<CsvViewModel> records = new List<CsvViewModel>();
+            try
+            {
+                using var stream = file.OpenReadStream();
+                using var reader = new StreamReader(stream);
+                using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
-            csv.Configuration.HasHeaderRecord = false;
-            csv.Configuration.RegisterClassMap<CsvTransactionMap>();
-            var records = csv.GetRecords<CsvViewModel>().ToList();
+                csv.Configuration.HasHeaderRecord = false;
+                csv.Configuration.RegisterClassMap<CsvTransactionMap>();
+                records = csv.GetRecords<CsvViewModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new TransactionValidationException(ex);
+            }
+            
             return Task.FromResult(mapper.Map<List<CsvViewModel>, List<TransactionDto>>(records));
         }
     }

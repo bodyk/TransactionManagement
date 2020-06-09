@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Core;
+using Core.Models;
 using DataAccess.Entities;
 using DataAccess.Repositories;
 using System;
@@ -39,7 +39,7 @@ namespace BusinessLogic.Services
             return mapper.Map<List<TransactionEntity>, List<TransactionResult>>(results);
         }
 
-        public Task UpploadAsync(List<TransactionDto> transactions)
+        public Task<int> UpploadAsync(List<TransactionDto> transactions)
         {
             var transactionsToUpload = mapper.Map<List<TransactionDto>, List<TransactionEntity>>(transactions);
             unitOfWork.TransactionRepository.Uppload(transactionsToUpload);

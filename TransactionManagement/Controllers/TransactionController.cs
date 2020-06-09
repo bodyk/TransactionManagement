@@ -23,11 +23,11 @@ namespace TransactionManagement.Queries
         }
 
         [ModelStateValidationAttribute]
-        public async Task<IActionResult> File(TransactionFileViewModel fileViewModel)
+        public async Task<int> File(TransactionFileViewModel fileViewModel)
         {
             var command = new UploadTransactionsCommand(fileViewModel);
             var result = await mediator.Send(command);
-            return RedirectToAction("Index");
+            return result;
         }
 
         [HttpGet]

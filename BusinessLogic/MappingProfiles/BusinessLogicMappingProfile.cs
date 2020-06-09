@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogic.MappingProfiles.Converters;
-using Core;
+using Core.Models;
 using DataAccess.Entities;
 
 namespace BusinessLogic.MappingProfiles

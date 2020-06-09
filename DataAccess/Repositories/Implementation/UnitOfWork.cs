@@ -1,7 +1,4 @@
 ﻿using DataAccess.DataContext;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DataAccess.Repositories.Implementation
@@ -18,7 +15,7 @@ namespace DataAccess.Repositories.Implementation
             TransactionRepository = transactionRepository;
         }
 
-        public Task CommitAsync()
+        public Task<int> CommitAsync()
         {
             return databaseContext.SaveChangesAsync();
         }

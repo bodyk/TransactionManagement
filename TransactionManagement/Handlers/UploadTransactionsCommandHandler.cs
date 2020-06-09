@@ -6,11 +6,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using TransactionManagement.Commands;
 using TransactionManagement.FileServices.Abstraction;
-using TransactionManagement.Responses;
 
 namespace TransactionManagement.Handlers
 {
-    public class UploadTransactionsCommandHandler : IRequestHandler<UploadTransactionsCommand, UploadTransactionsResponse>
+    public class UploadTransactionsCommandHandler : IRequestHandler<UploadTransactionsCommand, int>
     {
         private readonly IXmlService xmlService;
         private readonly ICsvService csvService;
@@ -29,15 +28,13 @@ namespace TransactionManagement.Handlers
             this.transactionServiceFactory = transactionServiceFactory;
         }
 
-        public async Task<UploadTransactionsResponse> Handle(UploadTransactionsCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(UploadTransactionsCommand request, CancellationToken cancellationToken)
         {
             var file = request.FileViewModel.File;
             var conversionService = transactionServiceFactory.Create(file);
             var result = await conversionService.ToTransaction(file);
 
-            await transactionService.UpploadAsync(result);
-
-            return new UploadTransactionsResponse();
+            return await transactionService.UpploadAsync(result);
         }
     }
 }
