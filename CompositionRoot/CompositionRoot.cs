@@ -3,6 +3,7 @@ using BusinessLogic.MappingProfiles;
 using BusinessLogic.Services;
 using ConversionLogic;
 using ConversionLogic.FileServices.Abstraction;
+using ConversionLogic.MappingProfiles;
 using DataAccess.DataContext;
 using DataAccess.Repositories;
 using DataAccess.Repositories.Implementation;
@@ -20,7 +21,7 @@ namespace CompositionRoot
 
         public static void InjectDependencies(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAutoMapper(typeof(MappingProfile));
+            services.AddAutoMapper(typeof(BusinessLogicMappingProfile), typeof(ConversionLogicMappingProfile));
             services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseSqlite(configuration.GetConnectionString("Default"));

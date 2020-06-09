@@ -5,9 +5,9 @@ using DataAccess.Entities;
 
 namespace BusinessLogic.MappingProfiles
 {
-    public class MappingProfile : Profile
+    public class BusinessLogicMappingProfile : Profile
     {
-        public MappingProfile()
+        public BusinessLogicMappingProfile()
         {
             CreateMap<TransactionDto, TransactionEntity>()
                 .ForMember(d => d.Id, opt => opt.MapFrom(src => src.TransactionIdentificator))

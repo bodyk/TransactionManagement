@@ -1,4 +1,5 @@
-﻿using ConversionLogic.FileServices.Abstraction;
+﻿using AutoMapper;
+using ConversionLogic.FileServices.Abstraction;
 using ConversionLogic.FileServices.Implementation;
 using ConversionLogic.ViewModels;
 using Core;
@@ -17,9 +18,12 @@ namespace TransactionManagement.FileServices.Implementation
     public class XmlService : IXmlService
     {
         private readonly Serializer serializer;
-        public XmlService()
+        private readonly IMapper mapper;
+
+        public XmlService(IMapper mapper)
         {
             this.serializer = new Serializer();
+            this.mapper = mapper;
         }
 
         public async Task<List<TransactionDto>> ToTransaction(IFormFile file)
@@ -27,24 +31,8 @@ namespace TransactionManagement.FileServices.Implementation
             XmlSerializer serializer = new XmlSerializer(typeof(List<TransactionViewModel>), new XmlRootAttribute("Transactions"));
             var xmlString = await ReadAsStringAsync(file);
             StringReader stringReader = new StringReader(xmlString);
-            var result = (List<TransactionViewModel>)serializer.Deserialize(stringReader);
-
-            List<TransactionDto> entities = new List<TransactionDto>();
-
-            foreach (var item in result)
-            {
-                var tr = new TransactionDto
-                {
-                    Amount = item.PaymentDetails.Amount,
-                    CurrencyCode = item.PaymentDetails.CurrencyCode,
-                    TransactionIdentificator = item.Id,
-                    Status = (Status)item.Status,
-                    TransactionDate = item.TransactionDate
-                };
-                entities.Add(tr);
-            }
-
-            return entities;
+            var records = (List<TransactionViewModel>)serializer.Deserialize(stringReader);
+            return mapper.Map<List<TransactionViewModel>, List<TransactionDto>>(records);
         }
 
         public async Task<string> ReadAsStringAsync(IFormFile file)
