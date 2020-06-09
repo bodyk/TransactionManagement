@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
+using BusinessLogic.MappingProfiles.Converters;
 using Core;
 using DataAccess.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLogic.MappingProfiles
 {
@@ -14,6 +12,9 @@ namespace BusinessLogic.MappingProfiles
             CreateMap<TransactionDto, TransactionEntity>()
                 .ForMember(d => d.Id, opt => opt.MapFrom(src => src.TransactionIdentificator))
                 .ReverseMap();
+
+            CreateMap<TransactionEntity, TransactionResult>()
+                .ConvertUsing<TransactionEntityToResultConverter>();
         }
     }
 }

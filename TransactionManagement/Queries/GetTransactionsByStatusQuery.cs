@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TransactionManagement.Queries
 {
-    public class GetTransactionsByStatusQuery : IRequest<List<TransactionDto>>
+    public class GetTransactionsByStatusQuery : IRequest<List<TransactionResult>>
     {
         public GetTransactionsByStatusQuery(string status)
         {

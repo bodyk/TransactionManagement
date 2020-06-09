@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TransactionManagement.Queries
 {
-    public class GetTransactionsByCurrencyQuery : IRequest<List<TransactionDto>>
+    public class GetTransactionsByCurrencyQuery : IRequest<List<TransactionResult>>
     {
         public GetTransactionsByCurrencyQuery(string currency)
         {

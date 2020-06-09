@@ -11,7 +11,7 @@ using TransactionManagement.Queries;
 
 namespace TransactionManagement.Handlers
 {
-    public class GetTransactionsByDateRangeHandler : IRequestHandler<GetTransactionsByDateRangeQuery, List<TransactionDto>>
+    public class GetTransactionsByDateRangeHandler : IRequestHandler<GetTransactionsByDateRangeQuery, List<TransactionResult>>
     {
         private readonly ITransactionService transactionService;
 
@@ -20,7 +20,7 @@ namespace TransactionManagement.Handlers
             this.transactionService = transactionService;
         }
 
-        public async Task<List<TransactionDto>> Handle(GetTransactionsByDateRangeQuery request, CancellationToken cancellationToken)
+        public async Task<List<TransactionResult>> Handle(GetTransactionsByDateRangeQuery request, CancellationToken cancellationToken)
         {
             return await transactionService.GetAllByDateRange(request.StartDate, request.EndDate);
         }

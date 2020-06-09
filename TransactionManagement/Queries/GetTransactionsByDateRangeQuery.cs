@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace TransactionManagement.Queries
 {
-    public class GetTransactionsByDateRangeQuery : IRequest<List<TransactionDto>>
+    public class GetTransactionsByDateRangeQuery : IRequest<List<TransactionResult>>
     {
         public GetTransactionsByDateRangeQuery(DateTime startDate, DateTime endDate)
         {

@@ -19,24 +19,24 @@ namespace BusinessLogic.Services
             this.mapper = mapper;
         }
 
-        public async Task<List<TransactionDto>> GetAllByCurrency(string currency)
+        public async Task<List<TransactionResult>> GetAllByCurrency(string currency)
         {
             var results = await unitOfWork.TransactionRepository.GetAllByCurrency(currency);
-            return mapper.Map<List<TransactionEntity>, List<TransactionDto>>(results);
+            return mapper.Map<List<TransactionEntity>, List<TransactionResult>>(results);
         }
 
-        public async Task<List<TransactionDto>> GetAllByDateRange(DateTime startDate, DateTime endDate)
+        public async Task<List<TransactionResult>> GetAllByDateRange(DateTime startDate, DateTime endDate)
         {
             var results = await unitOfWork.TransactionRepository.GetAllByDateRange(startDate, endDate);
-            return mapper.Map<List<TransactionEntity>, List<TransactionDto>>(results);
+            return mapper.Map<List<TransactionEntity>, List<TransactionResult>>(results);
 
         }
 
-        public async Task<List<TransactionDto>> GetAllByStatus(string status)
+        public async Task<List<TransactionResult>> GetAllByStatus(string status)
         {
             Status st = (Status)Enum.Parse(typeof(Status), status);
             var results = await unitOfWork.TransactionRepository.GetAllByStatus(st);
-            return mapper.Map<List<TransactionEntity>, List<TransactionDto>>(results);
+            return mapper.Map<List<TransactionEntity>, List<TransactionResult>>(results);
         }
 
         public Task UpploadAsync(List<TransactionDto> transactions)

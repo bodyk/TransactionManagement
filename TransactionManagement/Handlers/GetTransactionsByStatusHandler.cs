@@ -11,7 +11,7 @@ using TransactionManagement.Queries;
 
 namespace TransactionManagement.Handlers
 {
-    public class GetTransactionsByStatusHandler : IRequestHandler<GetTransactionsByStatusQuery, List<TransactionDto>>
+    public class GetTransactionsByStatusHandler : IRequestHandler<GetTransactionsByStatusQuery, List<TransactionResult>>
     {
         private readonly ITransactionService transactionService;
 
@@ -20,7 +20,7 @@ namespace TransactionManagement.Handlers
             this.transactionService = transactionService;
         }
 
-        public async Task<List<TransactionDto>> Handle(GetTransactionsByStatusQuery request, CancellationToken cancellationToken)
+        public async Task<List<TransactionResult>> Handle(GetTransactionsByStatusQuery request, CancellationToken cancellationToken)
         {
             return await transactionService.GetAllByStatus(request.Status);
         }
